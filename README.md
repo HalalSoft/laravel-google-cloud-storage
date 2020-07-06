@@ -22,8 +22,6 @@ Add a new disk to your `filesystems.php` config
         'bucket'   => env('GCP_BUCKET'),
 ],
 ```
-
-
 ## Usage
 You can use most of [Laravel Filesystem API](https://laravel.com/docs/7.x/filesystem)
 

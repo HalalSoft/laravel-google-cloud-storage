@@ -6,7 +6,6 @@ use Aws\S3\S3Client;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Filesystem\FilesystemManager;
-use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\AwsS3v3\AwsS3Adapter as S3Adapter;
@@ -25,10 +24,10 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
         /* @var FilesystemManager $factory */
         $factory->extend(
             'gcs',
-            function ($app, $config) {
-                $config['endpoint'] = $config['endpoint'] ?? 'https://storage.googleapis.com';
-                $config['base_url'] = $config['base_url'] ?? 'https://storage.googleapis.com';
-                $config['region']   = $config['region'] ?? 'none';
+            function ($app, array $config) {
+                $config['endpoint'] = $config['endpoint'] ?? "https://storage.googleapis.com";
+                $config['base_url'] = $config['base_url'] ?? "https://storage.googleapis.com";
+                $config['region']   = $config['region'] ?? "none";
 
                 $s3Config = $this->formatS3Config($config);
                 $root     = $s3Config['root'] ?? null;
@@ -50,7 +49,7 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
         $config += ['version' => 'latest'];
 
         if (!empty($config['key']) && !empty($config['secret'])) {
-            $config['credentials'] = Arr::only($config, ['key', 'secret', 'token']);
+            $config['credentials'] = array_intersect_key($config, array_flip(['key', 'secret', 'token']));
         }
 
         return $config;
@@ -59,7 +58,7 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
     /**
      * Adapt the filesystem implementation.
      *
-     * @param FilesystemInterface $filesystem
+     * @param  FilesystemInterface  $filesystem
      *
      * @return Filesystem
      */
@@ -71,17 +70,16 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
     /**
      * Create a Flysystem instance with the given adapter.
      *
-     * @param AdapterInterface $adapter
-     * @param array            $config
+     * @param  AdapterInterface  $adapter
+     * @param  array  $config
      *
      * @return FilesystemInterface
      */
     protected function createFlysystem(AdapterInterface $adapter, array $config)
     {
-        $cache = Arr::pull($config, 'cache');
+        $cache = $config["cache"] ?? null;
 
-        $config = Arr::only($config, ['visibility', 'disable_asserts', 'url']);
-
+        $config = array_intersect_key($config, array_flip((array)['visibility', 'disable_asserts', 'url']));
         if ($cache) {
             $adapter = new CachedAdapter($adapter, $this->createCacheStore($cache));
         }
@@ -96,4 +94,5 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
     {
         //
     }
+
 }
