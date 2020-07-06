@@ -26,9 +26,9 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
         $factory->extend(
             'gcs',
             function ($app, $config) {
-                $s3Config = $this->formatS3Config($config);
-
-                $root = $s3Config['root'] ?? null;
+                $s3Config           = $this->formatS3Config($config);
+                $s3Config['region'] = $s3Config['region'] ?? "none";
+                $root               = $s3Config['root'] ?? null;
 
                 $options = $config['options'] ?? [];
 

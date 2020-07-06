@@ -13,7 +13,8 @@
   "authors": [
     {
       "name": "Dyas Yaskur",
-      "email": "dyas@yaskur.com"
+      "email": "dyas@yaskur.com",
+      "homepage": "http://yaskur.com"
     }
   ],
   "require": {
@@ -30,7 +31,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "1.0-dev"
+      "dev-master": "0.1-dev"
     },
     "laravel": {
       "providers": [
