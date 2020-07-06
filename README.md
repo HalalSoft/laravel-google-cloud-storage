@@ -1,0 +1,2 @@
+# laravel-google-cloud-storage
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8d41ccda73e24e84ad69977f99f64bc2)](https://app.codacy.com/gh/HalalSoft/laravel-google-cloud-storage?utm_source=github.com&utm_medium=referral&utm_content=HalalSoft/laravel-google-cloud-storage&utm_campaign=Badge_Grade_Dashboard)
