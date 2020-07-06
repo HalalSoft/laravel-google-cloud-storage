@@ -26,9 +26,12 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
         $factory->extend(
             'gcs',
             function ($app, $config) {
+                $config['endpoint'] = $config['endpoint'] ?? "https://storage.googleapis.com";
+                $config['base_url'] = $config['base_url'] ?? "https://storage.googleapis.com";
+                $config['region']   = $config['region'] ?? "none";
+
                 $s3Config = $this->formatS3Config($config);
-                $s3Config['region'] = $s3Config['region'] ?? 'none';
-                $root = $s3Config['root'] ?? null;
+                $root     = $s3Config['root'] ?? null;
 
                 $options = $config['options'] ?? [];
 
@@ -56,7 +59,7 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
     /**
      * Adapt the filesystem implementation.
      *
-     * @param FilesystemInterface $filesystem
+     * @param  FilesystemInterface  $filesystem
      *
      * @return Filesystem
      */
@@ -68,8 +71,8 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
     /**
      * Create a Flysystem instance with the given adapter.
      *
-     * @param AdapterInterface $adapter
-     * @param array            $config
+     * @param  AdapterInterface  $adapter
+     * @param  array  $config
      *
      * @return FilesystemInterface
      */
@@ -93,4 +96,5 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
     {
         //
     }
+
 }
