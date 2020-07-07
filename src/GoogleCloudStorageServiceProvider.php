@@ -62,7 +62,7 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
     /**
      * Adapt the filesystem implementation.
      *
-     * @param FilesystemInterface  $filesystem
+     * @param FilesystemInterface $filesystem
      *
      * @return Filesystem
      */
@@ -74,8 +74,8 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
     /**
      * Create a Flysystem instance with the given adapter.
      *
-     * @param AdapterInterface  $adapter
-     * @param array  $config
+     * @param AdapterInterface $adapter
+     * @param array            $config
      *
      * @return FilesystemInterface
      */
@@ -94,20 +94,22 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
     /**
      * Create a cache store instance.
      *
-     * @param mixed  $config
-     *
-     * @return CacheInterface
+     * @param mixed $config
      *
      * @throws InvalidArgumentException
+     *
+     * @return CacheInterface
      */
     protected function createCacheStore($config)
     {
         if ($config === true) {
-            return new MemoryStore;
+            return new MemoryStore();
         }
 
         return new Cache(
-            $this->app['cache']->store($config['store']), $config['prefix'] ?? 'flysystem', $config['expire'] ?? null
+            $this->app['cache']->store($config['store']),
+            $config['prefix'] ?? 'flysystem',
+            $config['expire'] ?? null
         );
     }
 
