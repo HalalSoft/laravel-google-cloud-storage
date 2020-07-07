@@ -3,7 +3,10 @@
 A Google Cloud Storage filesystem for Laravel.
 
 [![StyleCI](https://github.styleci.io/repos/277488235/shield?branch=master)](https://github.styleci.io/repos/277488235?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/HalalSoft/laravel-google-cloud-storage/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/HalalSoft/laravel-google-cloud-storage/?branch=master)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/810881222d7f41e7ba0f14998418dc00)](https://www.codacy.com/gh/HalalSoft/laravel-google-cloud-storage?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=HalalSoft/laravel-google-cloud-storage&amp;utm_campaign=Badge_Grade)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/HalalSoft/laravel-google-cloud-storage/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+[![Build Status](https://scrutinizer-ci.com/g/HalalSoft/laravel-google-cloud-storage/badges/build.png?b=master)](https://scrutinizer-ci.com/g/HalalSoft/laravel-google-cloud-storage/build-status/master)
 [![GitHub repo size](https://img.shields.io/github/repo-size/halalsoft/laravel-google-cloud-storage?label=Repository%20size)](https://github.com/neneone/SnapeBot)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![GitHub top language](https://img.shields.io/github/languages/top/neneone/SnapeBot?label=PHP)](https://github.com/neneone/SnapeBot)

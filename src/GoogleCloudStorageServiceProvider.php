@@ -4,12 +4,16 @@ namespace Halalsoft\LaravelGoogleCloudStorage;
 
 use Aws\S3\S3Client;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Filesystem\Cache;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Support\ServiceProvider;
+use InvalidArgumentException;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\AwsS3v3\AwsS3Adapter as S3Adapter;
 use League\Flysystem\Cached\CachedAdapter;
+use League\Flysystem\Cached\CacheInterface;
+use League\Flysystem\Cached\Storage\Memory as MemoryStore;
 use League\Flysystem\Filesystem as Flysystem;
 use League\Flysystem\FilesystemInterface;
 
@@ -58,7 +62,7 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
     /**
      * Adapt the filesystem implementation.
      *
-     * @param  FilesystemInterface  $filesystem
+     * @param FilesystemInterface  $filesystem
      *
      * @return Filesystem
      */
@@ -70,8 +74,8 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
     /**
      * Create a Flysystem instance with the given adapter.
      *
-     * @param  AdapterInterface  $adapter
-     * @param  array  $config
+     * @param AdapterInterface  $adapter
+     * @param array  $config
      *
      * @return FilesystemInterface
      */
@@ -79,12 +83,32 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
     {
         $cache = $config["cache"] ?? null;
 
-        $config = array_intersect_key($config, array_flip((array)['visibility', 'disable_asserts', 'url']));
+        $config = array_intersect_key($config, array_flip((array) ['visibility', 'disable_asserts', 'url']));
         if ($cache) {
             $adapter = new CachedAdapter($adapter, $this->createCacheStore($cache));
         }
 
         return new Flysystem($adapter, count($config) > 0 ? $config : null);
+    }
+
+    /**
+     * Create a cache store instance.
+     *
+     * @param mixed  $config
+     *
+     * @return CacheInterface
+     *
+     * @throws InvalidArgumentException
+     */
+    protected function createCacheStore($config)
+    {
+        if ($config === true) {
+            return new MemoryStore;
+        }
+
+        return new Cache(
+            $this->app['cache']->store($config['store']), $config['prefix'] ?? 'flysystem', $config['expire'] ?? null
+        );
     }
 
     /**
@@ -94,5 +118,4 @@ class GoogleCloudStorageServiceProvider extends ServiceProvider
     {
         //
     }
-
 }
