@@ -3,6 +3,7 @@
 A Google Cloud Storage filesystem for Laravel.
 
 [![StyleCI](https://github.styleci.io/repos/277488235/shield?branch=master)](https://github.styleci.io/repos/277488235?branch=master)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/810881222d7f41e7ba0f14998418dc00)](https://www.codacy.com/gh/HalalSoft/laravel-google-cloud-storage?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=HalalSoft/laravel-google-cloud-storage&amp;utm_campaign=Badge_Grade)
 [![GitHub repo size](https://img.shields.io/github/repo-size/halalsoft/laravel-google-cloud-storage?label=Repository%20size)](https://github.com/neneone/SnapeBot)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![GitHub top language](https://img.shields.io/github/languages/top/neneone/SnapeBot?label=PHP)](https://github.com/neneone/SnapeBot)
@@ -22,6 +23,18 @@ Add a new disk to your `filesystems.php` config
         'bucket'   => env('GCP_BUCKET'),
 ],
 ```
+
+Above is the config that required, here is other possible configs:
+```php
+'gcs' => [
+        'driver'   => 'gcs',
+        'key'      => env('GCP_ACCESS_KEY_ID'),
+        'secret'   => env('GCP_SECRET_ACCESS_KEY'),
+        'bucket'   => env('GCP_BUCKET'),
+        'url'    => "https://custom.domain.com", //Your public URL (if you use custom domain or CDN)
+        'endpoint' => "https://storage.googleapis.com", //Your endpoint URL (if you use custom driver)
+],
+```
 ## Usage
 You can use most of [Laravel Filesystem API](https://laravel.com/docs/7.x/filesystem)
 
@@ -35,7 +48,7 @@ $disk->put('avatars/1', $request->file("image"));
 // check if a file exists
 $exists = $disk->exists('image.jpg');
 
-// get file modification date
+// get file last modification date
 $time = $disk->lastModified('image1.jpg');
 
 // copy a file
