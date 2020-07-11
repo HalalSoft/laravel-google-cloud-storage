@@ -13,9 +13,12 @@ A Google Cloud Storage filesystem for Laravel.
 [![Packagist Version](https://img.shields.io/packagist/v/halalsoft/laravel-google-cloud-storage.svg?style=flat-square)](https://packagist.org/packages/halalsoft/laravel-google-cloud-storage)
 [![Total Downloads](https://img.shields.io/packagist/dt/halalsoft/laravel-google-cloud-storage.svg?style=flat-square)](https://packagist.org/packages/halalsoft/laravel-google-cloud-storage)
 
-Created by <a href="https://yaskur.com/" target="_blank">Dyas Yaskur</a>
-
+This is using [flysystem-aws-s3-v3](https://packagist.org/packages/league/flysystem-aws-s3-v3). Because  Google Cloud Storage uses the same api as Amazon S3, so actually I just use the same driver but I renamed to gcs.
 ## Installation
+```
+composer require halalsoft/laravel-google-cloud-storage
+```
+
 Add a new disk to your `filesystems.php` config
 
 ```php
@@ -34,8 +37,14 @@ Above is the config that required, here is other possible configs:
         'key'      => env('GCP_ACCESS_KEY_ID'),
         'secret'   => env('GCP_SECRET_ACCESS_KEY'),
         'bucket'   => env('GCP_BUCKET'),
+        'visibility' => 'public', //Default visibility, you can set public or private
         'url'    => "https://custom.domain.com", //Your public URL (if you use custom domain or CDN)
         'endpoint' => "https://storage.googleapis.com", //Your endpoint URL (if you use custom driver)
+        'cache' => [
+            'store' => 'memcached',
+            'expire' => 600,
+            'prefix' => 'cache-prefix',
+          ],
 ],
 ```
 ## Usage

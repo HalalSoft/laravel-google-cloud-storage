@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0 - 2020-07-11
+*   PHP 7 is required
+*   Improve code
+
 ## 0.1.2 - 2020-07-07
 *   set default endpoint
 *   set default base_url
