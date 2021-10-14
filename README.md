@@ -1,4 +1,4 @@
-# laravel-google-cloud-storage
+# Laravel Google Cloud Storage
 
 A Google Cloud Storage filesystem for Laravel.
 
